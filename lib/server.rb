@@ -10,7 +10,7 @@ module LabServer
             'super_user'
         ].freeze
 
-        ROOT_DIR = File.expand_path(".")
+        RPOJECT_DIR = File.expand_path(".")
 
         @tokens = {}
 
@@ -30,6 +30,7 @@ module LabServer
             end
 
             def check_token(token)
+                puts "KEYS = #{@tokens.keys}" 
                 @tokens.keys.include? token
             end
 
@@ -40,9 +41,9 @@ module LabServer
             private
 
             def routes(server)
-                server.mount('/login/', Servlets::LoginServlet)
-                server.mount('/success/', Servlets::SuccessServlet)
-                server.mount('/admin/', Servlets::AdminServlet)
+                server.mount('/login', Servlets::LoginServlet)
+                server.mount('/success', Servlets::SuccessServlet)
+                server.mount('/admin', Servlets::AdminServlet)
                 server.mount('/', Servlets::HomeServlet)
             end
 
