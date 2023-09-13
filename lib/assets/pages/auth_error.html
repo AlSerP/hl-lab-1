@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Домашняя страница</h1>
+
+    <form method="post" action="/login">
+        <input name="login" type="text" placeholder="Логин">
+        <input name="password" type="password" placeholder="Пароль">
+        <span class="error">Ошибка авторизации</span>
+
+        <button type="submit">Отправить</button>
+    </form>
+</body>
+</html>
