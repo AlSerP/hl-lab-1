@@ -2,6 +2,8 @@ module LabServer
     module Servlets
         class LoginServlet < WEBrick::HTTPServlet::AbstractServlet
             SUCCESS_PATH = '/success'
+            ADMIN_SUCCESS_PATH = '/admin'
+            
             ERROR_PATH = '/?status=auth_error'
             ERROR_TEMPLATE = 'auth_error.html' 
 
@@ -20,9 +22,12 @@ module LabServer
                         token = LabServer::Utils::Token.generate user
                         
                         LabServer::Server::set_token user, token
+                        
+                        redirect_path = SUCCESS_PATH
+                        redirect_path = ADMIN_SUCCESS_PATH if LabServer::Server.admin? user 
 
                         response.cookies.push WEBrick::Cookie.new("token", token)
-                        response.set_redirect WEBrick::HTTPStatus[301], SUCCESS_PATH
+                        response.set_redirect WEBrick::HTTPStatus[301], redirect_path
                     else
                         response.set_redirect WEBrick::HTTPStatus[301], ERROR_PATH
                         # response.body = LabServer::HTML::Template.get_html ERROR_TEMPLATE
