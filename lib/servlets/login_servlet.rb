@@ -7,14 +7,15 @@ module LabServer
             ERROR_TEMPLATE = 'auth_error.html' 
 
             def do_POST(request, response)
-                puts 'GOT POST METHOD'
                 data = {}
-                request.body.split('&').each do |arg|
-                    name, value = arg.split('=')
-                    data[name] = value
+
+                if request.body 
+                    request.body.split('&').each do |arg|
+                        name, value = arg.split('=')
+                        data[name] = value
+                    end
                 end
-                puts data['login']
-                puts data
+
                 if data.keys.include?('password') && data.keys.include?('login')
                     if LabServer::Server::USERS[data['login']] == data['password']
                         user = data['login']

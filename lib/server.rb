@@ -10,6 +10,8 @@ module LabServer
             'super_user'
         ].freeze
 
+        ROOT_DIR = File.expand_path(".")
+
         @tokens = {}
 
         class << self
